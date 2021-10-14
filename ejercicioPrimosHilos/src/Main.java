@@ -9,18 +9,14 @@ public class Main extends Thread {
         int num2 = sc.nextInt();
         System.out.print("Introduce el tercer numero:");
         int num3 = sc.nextInt();
-        Hilo hilo1 = new Hilo(num1);
-        Hilo hilo2 = new Hilo(num2);
-        Hilo hilo3 = new Hilo(num3);
-        try {
-            //Duerme el hilo que passe por aqui durante un tiempo
-            //En este caso, siempre sera el main
-            System.out.println("Esperando 5 segundos a arrancar los hilos... :), que nervios...");
-            Thread.sleep(5000);//5 seg
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        Hilo hilo1 = new Hilo();
+        hilo1.setNumero(num1);
+        Hilo hilo2 = new Hilo();
+        hilo2.setNumero(num2);
+        Hilo hilo3 = new Hilo();
+        hilo3.setNumero(num3);
+
+
 
         //arrancamos los dos hilos
         //ojo no se ejecuta run()
