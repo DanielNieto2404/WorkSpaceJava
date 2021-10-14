@@ -6,7 +6,7 @@ import modelo.Coche;
 public interface DaoCoche {
     public boolean alta(Coche p);
     public boolean baja(int id);
-    public boolean modificar(Coche p);
+    public boolean modificar(Coche p, int id);
     public Coche obtener(int id);
     public List<Coche> listar();
 }

@@ -42,7 +42,7 @@ public class DaoCocheMySql implements DaoCoche {
         }
         boolean alta = true;
 
-        String query = "insert into personas (NOMBRE,EDAD,PESO) "
+        String query = "insert into vehiculos (matricula,modelo,marca) "
                 + " values(?,?,?)";
         try {
             //preparamos la query con valores parametrizables(?)
@@ -72,7 +72,7 @@ public class DaoCocheMySql implements DaoCoche {
         }
 
         boolean borrado = true;
-        String query = "delete from personas where id = ?";
+        String query = "delete from vehiculos where id = ?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
             //sustituimos la primera interrgante por la id
@@ -93,18 +93,19 @@ public class DaoCocheMySql implements DaoCoche {
     }
 
     @Override
-    public boolean modificar(Coche p) {
+    public boolean modificar(Coche p, int id) {
         if(!abrirConexion()){
             return false;
         }
         boolean modificado = true;
-        String query = "update personas set NOMBRE=?, EDAD=?, "
-                + "PESO=? WHERE ID=?";
+        String query = "update vehiculos set matricula=?, modelo=?, "
+                + "marca=? WHERE ID=?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
             ps.setString(1, p.getMatricula());
             ps.setString(2, p.getModelo());
             ps.setString(3, p.getMarca());
+            ps.setInt(4,id);
 
             int numeroFilasAfectadas = ps.executeUpdate();
             if(numeroFilasAfectadas == 0)
@@ -129,7 +130,7 @@ public class DaoCocheMySql implements DaoCoche {
         }
         Coche persona = null;
 
-        String query = "select ID,NOMBRE,EDAD,PESO from personas "
+        String query = "select ID,matricula,modelo,marca from vehiculos "
                 + "where id = ?";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
@@ -143,8 +144,8 @@ public class DaoCocheMySql implements DaoCoche {
                 persona.setModelo(rs.getString(3));
             }
         } catch (SQLException e) {
-            System.out.println("obtener -> error al obtener la "
-                    + "persona con id " + id);
+            System.out.println("obtener -> error al obtener el "
+                    + "vehiculo con id " + id);
             e.printStackTrace();
         } finally {
             cerrarConexion();
@@ -161,7 +162,7 @@ public class DaoCocheMySql implements DaoCoche {
         }
         List<Coche> listaPersonas = new ArrayList<>();
 
-        String query = "select ID,NOMBRE,EDAD,PESO from personas";
+        String query = "select ID,matricula,modelo,marca from vehiculos";
         try {
             PreparedStatement ps = conexion.prepareStatement(query);
 
