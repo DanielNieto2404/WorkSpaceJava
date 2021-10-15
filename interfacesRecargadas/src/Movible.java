@@ -1,5 +1,10 @@
 public interface Movible {
-    default void mover(int distancia){
-        System.out.println("El vehiculo se ha movido " + distancia + " Km");
+    int metros = 10;
+    default void mover(){
+        if(this instanceof Vehiculo){
+            Vehiculo v = (Vehiculo)this;
+            System.out.println("El vehiculo "+v.getNombre() +" se ha movido " + metros + " Km");
+        }
+
     }
 }
